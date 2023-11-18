@@ -71,3 +71,32 @@ it("works when you click on the left arrow", function () {
     container.querySelector('img[alt="testing image 2"]')
   ).not.toBeInTheDocument();
 });
+
+it("should not display left arrow on the first image", function () {
+  const { container } = render(
+    <Carousel photos={TEST_IMAGES} title="images for testing" />
+  );
+
+  // expect left arrow to be missing on the first image
+  expect(
+    container.querySelector(".bi-arrow-left-circle")
+  ).not.toBeInTheDocument();
+});
+
+it("should not display right arrow on the last image", function () {
+  const { container } = render(
+    <Carousel photos={TEST_IMAGES} title="images for testing" />
+  );
+
+  // move forward to last image
+  const rightArrow = container.querySelector(".bi-arrow-right-circle");
+
+  for (let _ of TEST_IMAGES) {
+    fireEvent.click(rightArrow);
+  }
+
+  // expect right arrow to be missing on the last image
+  expect(
+    container.querySelector(".bi-arrow-right-circle")
+  ).not.toBeInTheDocument();
+});
