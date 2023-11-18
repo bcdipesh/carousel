@@ -2,8 +2,19 @@ import { render, fireEvent } from "@testing-library/react";
 import Carousel from "./Carousel";
 import TEST_IMAGES from "./_testCommon.js";
 
-it("renders Carousel component", async () =>
-  render(<Carousel photos={TEST_IMAGES} title="images for testing" />));
+// Smoke test
+it("renders Carousel component", function () {
+  render(<Carousel photos={TEST_IMAGES} title="images for testing" />);
+});
+
+// Snapshot test
+it("matches snapshot", function () {
+  const { asFragment } = render(
+    <Carousel photos={TEST_IMAGES} title="images for testing" />
+  );
+
+  expect(asFragment()).toMatchSnapshot();
+});
 
 // it("works when you click on the right arrow", function () {
 //   const { container } = render(
